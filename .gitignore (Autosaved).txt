@@ -1,2 +1,0 @@
-.htaccess
-application/config/config.php
