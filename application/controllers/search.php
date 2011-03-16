@@ -34,6 +34,7 @@ class Search extends AppController {
         $this->_view_vars['search_terms'] = '';
         $this->_view_vars['has_ambiguous_terms'] = $has_ambiguous_terms = false;
         $this->_view_vars['has_error'] = $has_error = false;
+        $this->_view_vars['has_results'] = $has_results = false;
         
         $invoke_search = false;
         
@@ -237,7 +238,7 @@ class Search extends AppController {
                     $this->_view_vars['representative_results'] = &$representative_results;
                     $this->_view_vars['representative_result_count'] = $representative_result_count;
                     $this->_view_vars['searched_location'] = &$searched_location;
-                    $this->_view_vars['has_results'] = true;
+                    $this->_view_vars['has_results'] = $has_results = true;
                 }
                 else
                 {
@@ -248,6 +249,12 @@ class Search extends AppController {
         }
         
         $this->_view_vars['has_error'] = $has_error;
+        
+        if( !$has_results )
+        {
+            $this->_view_vars['media_homepage'] = trim($this->config->item('media_homepage'));
+            $this->_view_vars['media_homepage'] = empty($this->_view_vars['media_homepage']) ? null : $this->_view_vars['media_homepage'];
+        }
         
         $this->render(array('header', 'search', 'footer'));
     }

@@ -88,5 +88,11 @@
                 
             </div>
         </div>
+        <?php elseif( $media_homepage ) : ?>
+        <div class="iframe-wrapper">
+            <iframe src="<?php print $media_homepage; ?>" width="100%" height="300px">
+                <p>The file could not be found and or your browser does not support iframes.</p>
+            </iframe>
+        </div>
         <?php endif; ?>
     </div>
