@@ -8,10 +8,10 @@ foreach( $results as &$result ) :
 
     $classes = array();
     
-    if( $result->wardid == $searched_location['ward']->wardid )
+    if( $result->wardid == $searched_location['ward']->wardnumber )
         $classes = array('highlight');
     
-    if( 0 == ($iter % 2) ) :
+    if( 0 == ($iter % 2) && $last_wardid == $result->wardid ) :
         $classes[] = 'right';
     else:
         $classes[] = 'left';
@@ -21,7 +21,10 @@ foreach( $results as &$result ) :
     ?>
     <?php if( $last_wardid != $result->wardid ) : ?>
     <div class="clear-fix">&nbsp;</div>
-    <?php endif; ?>
+    
+    <?php if( !isset($hide_ward_labels) ) : ?>
+    <h2 class="ward-name"><?php print sprintf('Ward %s', $result->wardid); ?></h2>
+    <?php endif; endif; ?>
     
     <div class="result <?php print $class; ?>" id="ward<?php print !empty($result->wardid) ? ('-' . $result->wardid) : ''; ?>">
         <?php if( !empty($result->imageurl) ) : ?>

@@ -113,21 +113,7 @@ class Search extends AppController {
                 $representative_results = $this->_ogdi->query('WardRepRepresentatives', sprintf("city eq '%s'", $terms_geocoded->city));
                 $representative_result_count = count($representative_results);
                 
-                $ward_results = null;
-                $ward_result_count = 0;
-                switch( strtolower($terms_geocoded->city) ) {
-                    case 'guelph':
-                        $ward_results = $this->_ogdi->query('GuelphWards', '');
-                        break;
-                    
-                    case 'milton':
-                    case 'london':
-                    default:
-                        $representative_results = null;
-                        $representative_result_count = 0;
-                        break;
-                }
-                
+                $ward_results = $this->_ogdi->query('CityWards', "city eq '{$terms_geocoded->city}'");
                 $ward_result_count = count($ward_results);
                 
                 if( 0 < $representative_result_count && 0 < $ward_result_count )
@@ -273,8 +259,7 @@ function _sort_wardreps_by_wardid($lhs, $rhs) {
         $lhs->wardid = null;
         $rhs->wardid = null;
         
-        
-        throw new Exception('Unable to sort Representative entities on "wardid" field.');
+        throw new Exception('Unable to sort Representative entities on "wardnumber" field.');
     }
     
     if( $lhs->wardid == $rhs->wardid )

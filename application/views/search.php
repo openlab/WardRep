@@ -27,12 +27,12 @@
             <div class="quick-info">
                 
                 <?php if( 1 < $searched_location['representatives']['count'] ) : ?>
-                <h1><?php print sprintf("Ward %s's Representatives are:", $searched_location['ward']->wardid); ?></h1>
+                <h1><?php print sprintf("Ward %s's Representatives are:", $searched_location['ward']->wardnumber); ?></h1>
                 <?php else: ?>
-                <h1><?php print sprintf("Ward %s's Representative is:", $searched_location['ward']->wardid); ?></h1>
+                <h1><?php print sprintf("Ward %s's Representative is:", $searched_location['ward']->wardnumber); ?></h1>
                 <?php endif; ?>
                 
-                <?php $this->load->view('search-results', array('results' => $searched_location['representatives']['data'], 'base_path' => $base_path, 'searched_location' => $searched_location)); ?>
+                <?php $this->load->view('search-results', array('results' => $searched_location['representatives']['data'], 'base_path' => $base_path, 'searched_location' => $searched_location, 'hide_ward_labels' => true)); ?>
             </div>
             <?php endif; ?>
             <?php if( isset($search_terms) && !empty($search_terms) ) : ?>
@@ -65,7 +65,7 @@
                     <div class="view-all-details">
                         <div class="display-none" id="view-mayor-details">
                             <div class="details">
-                                <?php $this->load->view('search-results', array('results' => $representative_results['mayor'], 'base_path' => $base_path, 'searched_location' => $searched_location)); ?>
+                                <?php $this->load->view('search-results', array('results' => $representative_results['mayor'], 'base_path' => $base_path, 'searched_location' => $searched_location, 'hide_ward_labels' => null)); ?>
                             </div>
                         </div>
                         
