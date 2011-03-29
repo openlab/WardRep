@@ -255,12 +255,6 @@ class Search extends AppController {
         
         $this->_view_vars['has_error'] = $has_error;
         
-        if( !$has_results )
-        {
-            $this->_view_vars['media_homepage'] = trim($this->config->item('media_homepage'));
-            $this->_view_vars['media_homepage'] = empty($this->_view_vars['media_homepage']) ? null : $this->_view_vars['media_homepage'];
-        }
-        
         $this->render(array('header', 'search', 'footer'));
     }
     

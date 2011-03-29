@@ -108,7 +108,7 @@ p {
     border-top: 1px solid #DCDCDC;
     padding: 10px 0px;
     
-    margin-top: 25px;
+    margin-top: 15px;
 }
 
 .footer p {
@@ -602,4 +602,43 @@ p {
 .polygon-label a:hover,
 .polygon-label a:visited {
     color: #FFFFFF;
+}
+
+article.post {
+    margin-bottom: 15px;
+    border-bottom: 2px solid #F7F7F7;
+    
+    padding: 10px 0px;
+}
+
+article.post header { }
+article.post p.contread {
+    text-align: right;
+    padding: 5px 0px;
+}
+
+article.post .meta {
+    background: #F7F7F7;
+    padding: 13px 10px 10px 10px;
+    font-size: 11px;
+    text-transform: uppercase;
+}
+
+article.post .meta .time {
+    float: left;
+}
+
+article.post .meta .links {
+    float: right;
+}
+
+.newsstream {
+    margin-top: 25px;
+}
+
+.newsstream h1 {
+    font-size: 22px;
+    font-weight: normal;
+    letter-spacing: -1px;
+    border-bottom: 2px solid #F7F7F7;
 }

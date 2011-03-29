@@ -41,6 +41,11 @@ class AppController extends Controller {
         );
         
         $this->load->library('AppSession', null, '_session');
+        
+        $timezone = trim($this->config->item('timezone'));
+        $timezone = empty($timezone) ? 'America/Toronto' : $timezone;
+        
+        date_default_timezone_set($timezone);
     }
     
     /**

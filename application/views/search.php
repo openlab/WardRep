@@ -88,11 +88,19 @@
                 
             </div>
         </div>
-        <?php elseif( $media_homepage ) : ?>
-        <div class="iframe-wrapper">
-            <iframe src="<?php print $media_homepage; ?>" width="100%" height="300px">
-                <p>The file could not be found and or your browser does not support iframes.</p>
-            </iframe>
+        <?php else: ?>
+        <div class="newsstream">
+            <h1>News Stream</h1>
+            <?php
+            $feed = simplexml_load_file('http://openlab.ca/wordpress/category/wardrep/feed');
+            foreach( $feed->channel->item as $post )
+            {
+                $this->load->view('rss-feed-post', array(
+                    'post' => $post,
+                    'base_path' => $base_path
+                ));
+            }
+            unset($post);
+            endif; ?>
         </div>
-        <?php endif; ?>
     </div>
