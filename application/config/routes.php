@@ -43,10 +43,10 @@
 $route['default_controller'] = "search";
 $route['scaffolding_trigger'] = "";
 
-/* Custom routes for the CityWards application */
+/* Custom routes for the WardRep application */
 $route['about']     = 'content/about';
 $route['feedback']  = 'content/feedback';
-$route['privacy']   = 'content/privacy';
+$route['legal']   = 'content/legal';
 
 $route['search']    = 'search/index';
 $route['search/address'] = 'search/index';

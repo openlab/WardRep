@@ -108,13 +108,13 @@ class Content extends AppController {
     }
     
     /**
-     * privacy
+     * legal
      *
      * @access: public
      * @param: void
      * @return: void
      */
-    public function privacy() {
-        $this->render(array('header', 'privacy', 'footer'));
+    public function legal() {
+        $this->render(array('header', 'legal', 'footer'));
     }
 }

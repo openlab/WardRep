@@ -11,9 +11,14 @@ defined('BASEPATH') OR exit;
 class AppController extends Controller {
     /* Member variables */
     /**
-     * @var _view_vars
+     * @var array
      */
     protected $_view_vars = array();
+    
+    /**
+     * @var AppSession
+     */
+    public $_session = null;
     
     /**
      * __construct
@@ -34,6 +39,8 @@ class AppController extends Controller {
                 )
             )
         );
+        
+        $this->load->library('AppSession', null, '_session');
     }
     
     /**
@@ -44,7 +51,7 @@ class AppController extends Controller {
      * @return: void
      */
     public function __destruct() {
-        /* void */
+        unset($this->_session);
     }
     
     /**

@@ -10,6 +10,8 @@ defined('BASEPATH') OR exit;
  */
 class Search extends AppController {
     /* Member variables */
+    public $_ogdi = null;
+    
     /**
      * __construct
      *
@@ -19,6 +21,13 @@ class Search extends AppController {
      */
     public function __construct() {
         parent::__construct();
+        
+        $this->load->library('OGDI', null, '_ogdi');
+        
+        if( !$this->_session->exists('valid_cities') )
+        {
+            $this->_load_valid_cities();
+        }
     }
     
     /**
@@ -64,8 +73,6 @@ class Search extends AppController {
         if( $invoke_search && !$has_error ) {
             $this->_view_vars['search_terms'] = &$search_terms;
             
-            /* add testing to see if 'guelph' exists */
-            
             $this->load->library('BingMaps', null, '_bing_maps');
             $terms_geocoded = $this->_bing_maps->geocode_lookup_latlng($search_terms);
             
@@ -99,7 +106,7 @@ class Search extends AppController {
                 
                 if( !$has_error )
                 {
-                    $valid_cities = $this->config->item('valid_cities');
+                    $valid_cities = $this->_session->get('valid_cities');
                     if( !in_array($terms_geocoded->city, $valid_cities) )
                     {
                         $has_error = true;
@@ -109,8 +116,6 @@ class Search extends AppController {
             }
             
             if( !$has_error && !$has_ambiguous_terms ) {
-                $this->load->library('OGDI', null, '_ogdi');
-                
                 $representative_results = $this->_ogdi->query('WardRepRepresentatives', sprintf("city eq '%s'", $terms_geocoded->city));
                 $representative_result_count = count($representative_results);
                 
@@ -257,6 +262,21 @@ class Search extends AppController {
         }
         
         $this->render(array('header', 'search', 'footer'));
+    }
+    
+    private function _load_valid_cities()
+    {
+        $valid_cities = array();
+        $data = $this->_ogdi->query('WardRepRepresentatives');
+        foreach( $data as $key => $entity )
+        {
+            if( !in_array($entity->city, $valid_cities) )
+            {
+                $valid_cities[] = $entity->city;
+            }
+        }
+        
+        $this->_session->set('valid_cities', $valid_cities);
     }
 }
 
